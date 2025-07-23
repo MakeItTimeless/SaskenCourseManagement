@@ -13,6 +13,9 @@ public class CourseDAO {
 
     public CourseDAO() {
         connection = DBConnection.getConnection();
+        if (connection == null) {
+            throw new IllegalStateException("Database connection is not established.");
+        }
     }
 
     public void createCourse(Course course) {
@@ -22,7 +25,7 @@ public class CourseDAO {
             pstmt.setString(2, course.getDescription());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error creating course", e);
         }
     }
 
@@ -31,12 +34,13 @@ public class CourseDAO {
         String query = "SELECT * FROM courses WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                course = new Course(rs.getInt("id"), rs.getString("title"), rs.getString("description"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    course = new Course(rs.getInt("id"), rs.getString("title"), rs.getString("description"));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error fetching course", e);
         }
         return course;
     }
@@ -51,7 +55,7 @@ public class CourseDAO {
                 courses.add(course);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error fetching courses", e);
         }
         return courses;
     }
@@ -64,7 +68,7 @@ public class CourseDAO {
             pstmt.setInt(3, course.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error updating course", e);
         }
     }
 
@@ -74,7 +78,7 @@ public class CourseDAO {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error deleting course", e);
         }
     }
 }
