@@ -1,0 +1,8 @@
+com\elearning\models\User.class
+com\elearning\ui\MainUI.class
+com\elearning\dao\UserDAO.class
+com\elearning\models\Course.class
+com\elearning\models\Enrollment.class
+com\elearning\dao\CourseDAO.class
+com\elearning\utils\DBConnection.class
+com\elearning\dao\EnrollmentDAO.class
