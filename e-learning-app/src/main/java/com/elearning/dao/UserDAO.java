@@ -1,6 +1,7 @@
 package com.elearning.dao;
 
 import com.elearning.models.User;
+import com.elearning.utils.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class UserDAO {
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
-            pstmt.setInt(3, user.getId());
+            pstmt.setInt(3, user.getUserId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
