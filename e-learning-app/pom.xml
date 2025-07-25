@@ -17,11 +17,6 @@
             <version>8.0.26</version>
         </dependency>
         <dependency>
-            <groupId>javax.swing</groupId>
-            <artifactId>javax.swing-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
